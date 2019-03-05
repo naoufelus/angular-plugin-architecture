@@ -6,9 +6,9 @@ import commonjs from 'rollup-plugin-commonjs';
 export default [{
    input: 'src/main.ts',
    output: {
-     file: '../../core-app/src/assets/plugins/plugin-a.bundle.js',   
+     file: '../../core-app/src/assets/plugins/login.bundle.js',
      format: 'umd',
-     name: 'plugin-a',
+     name: 'plugin-login',
 },
    plugins: [
      angular(),
@@ -28,6 +28,7 @@ export default [{
    external: [
      '@angular/core',
      '@angular/common',
-     '@angular/forms'
+     '@angular/forms',
+     '@angular/router'
    ]
 }]
