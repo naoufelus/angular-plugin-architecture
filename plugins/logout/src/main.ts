@@ -1,0 +1,1 @@
+export { LogoutModule } from './app/logout.module';
