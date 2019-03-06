@@ -3,22 +3,29 @@ import { JitCompilerFactory } from '@angular/platform-browser-dynamic';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-
+import { routing } from './app.routing';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 
 export function createCompiler(fn: CompilerFactory): Compiler {
-     return fn.createCompiler();
+  return fn.createCompiler();
 }
 
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent,
+    DefaultLayoutComponent
   ],
   imports: [
+    routing,
     FormsModule,
     RouterModule.forRoot([]),
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [{
     provide: COMPILER_OPTIONS,

@@ -6,8 +6,7 @@ import { first } from 'rxjs/operators';
 import { LoginService } from './login.service';
 
 @Component({
-    templateUrl: 'login.component.html',
-    providers: [LoginService]
+    templateUrl: 'login.component.html'
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -19,7 +18,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private loginService: LoginService) {}
+        private loginService: LoginService
+    ) { }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
