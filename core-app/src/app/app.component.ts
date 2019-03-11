@@ -1,48 +1,38 @@
-import { AfterViewInit, Component, Compiler, Injector, ViewChild,
-         ViewContainerRef } from '@angular/core';
+import {
+  AfterViewInit, Component, ViewChild, ViewContainerRef
+} from '@angular/core';
+import { Route } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { PluginService, PluginConfig } from '@accretio/common';
+import { RouterService } from './services/router.service';
 
 declare const SystemJS: any;
 
 @Component({
   selector: 'app-root',
-  template: '<div #content></div>'
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements AfterViewInit {
   @ViewChild('content', { read: ViewContainerRef }) content: ViewContainerRef;
 
-  constructor(private _compiler: Compiler, private _injector: Injector) { }
+  public existingRoutes$: Observable<Route[]>;
+  private readonly loginConfig: PluginConfig = {
+    name: 'login',
+    moduleBundlePath: 'assets/plugins/login.bundle.js',
+    moduleName: 'LoginModule'
+  };
 
-  ngAfterViewInit() {
-    this.loadPlugins();
+
+  constructor(private pluginService: PluginService, private routerService: RouterService) {
+    this.existingRoutes$ = this.routerService.existingRoutes;
   }
 
-  private async loadPlugins() {
-    // import external module bundle
-    const module = await SystemJS.import('assets/plugins/login.bundle.js');
-
-    // compile module
-    const moduleFactory = await this._compiler
-                                    .compileModuleAsync<any>(module['LoginModule']);
-
-    // resolve component factory
-    const moduleRef = moduleFactory.create(this._injector);
-
-    // get the custom made provider name 'plugins'
-    const componentProvider = moduleRef.injector.get('login');
-
-    // from plugins array load the component on position 0
-    const componentFactory = moduleRef.componentFactoryResolver
-                                      .resolveComponentFactory<any>(
-                                          componentProvider[0][0].component
-                                      );
-
-    // compile component
-    const pluginComponent = this.content.createComponent(componentFactory);
-
-    // sending @Input() values
-    // pluginComponent.instance.anyInput = 'inputValue';
-
-    // accessing the component template view
-    // (pluginComponent.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+  ngAfterViewInit() {
+    // this.loadPlugins();
+    // this.pluginService.loadPlugin(this.loginConfig, this.content);
+    /* console.log(SystemJS);
+    console.log(SystemJS.register);
+    console.log('get ' + SystemJS.registry.get('login')); */
   }
 }

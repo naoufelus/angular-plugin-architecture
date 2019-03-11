@@ -4590,9 +4590,13 @@ var RegisterModule = /** @class */ (function () {
             imports: [
                 common.CommonModule,
                 forms.FormsModule,
-                router.RouterModule,
                 HttpClientModule,
-                forms.ReactiveFormsModule
+                forms.ReactiveFormsModule,
+                router.RouterModule.forChild([
+                    {
+                        path: '', pathMatch: 'full', component: RegisterComponent
+                    }
+                ])
             ],
             declarations: [RegisterComponent],
             entryComponents: [RegisterComponent],

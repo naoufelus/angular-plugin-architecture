@@ -1,0 +1,23 @@
+[
+  {
+    "path": "login",
+    "location": "./assets/plugins/login.bundle.js",
+    "moduleName": "LoginModule",
+    "description": "module login",
+    "registered": true
+  },
+  {
+    "path": "register",
+    "location": "./assets/plugins/register.bundle.js",
+    "moduleName": "RegisterModule",
+    "description": "module register",
+    "registered": false
+  },
+  {
+    "path": "logout",
+    "location": "./assets/plugins/logout.bundle.js",
+    "moduleName": "LogoutModule",
+    "description": "module logout",
+    "registered": true
+  }
+]

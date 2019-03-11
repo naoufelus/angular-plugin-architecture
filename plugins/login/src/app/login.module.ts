@@ -11,22 +11,26 @@ import { LoginService } from './login.service';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild([
+      {
+        path: '', pathMatch: 'full', component: LoginComponent
+      }
+    ])
   ],
   declarations: [LoginComponent],
   entryComponents: [LoginComponent],
   providers: [
     {
-     provide: 'login',
-     useValue: [{
-       name: 'login-component',
-       component: LoginComponent
-     }],
-     multi: true
-   },
-   LoginService
+      provide: 'login',
+      useValue: [{
+        name: 'login-component',
+        component: LoginComponent
+      }],
+      multi: true
+    },
+    LoginService
   ]
 })
 export class LoginModule { }

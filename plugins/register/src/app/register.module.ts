@@ -11,9 +11,13 @@ import { RegisterService } from './register.service';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild([
+      {
+        path: '', pathMatch: 'full', component: RegisterComponent
+      }
+    ])
   ],
   declarations: [RegisterComponent],
   entryComponents: [RegisterComponent],
