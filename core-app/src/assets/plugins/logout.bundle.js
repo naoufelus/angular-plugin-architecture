@@ -41,12 +41,25 @@ function __metadata(metadataKey, metadataValue) {
 
 var LogoutComponent = /** @class */ (function () {
     function LogoutComponent() {
+        this.name = 'logout';
+        this.sayHelloEvent = new core.EventEmitter();
     }
-    LogoutComponent.prototype.ngOnInit = function () {
+    LogoutComponent.prototype.ngOnInit = function () { };
+    LogoutComponent.prototype.sayHello = function (event) {
+        console.log(event);
+        this.sayHelloEvent.emit(event);
     };
+    __decorate([
+        core.Input(),
+        __metadata("design:type", String)
+    ], LogoutComponent.prototype, "name", void 0);
+    __decorate([
+        core.Output(),
+        __metadata("design:type", Object)
+    ], LogoutComponent.prototype, "sayHelloEvent", void 0);
     LogoutComponent = __decorate([
         core.Component({
-            template: "<h1>Logout</h1>"
+            template: "\n    <h1>Hello {{name}}!</h1>\n    <button (click)=\"sayHello(name)\">Say hello</button>\n  "
         }),
         __metadata("design:paramtypes", [])
     ], LogoutComponent);

@@ -1,15 +1,22 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 
 @Component({
-  template: `<h1>Logout</h1>`
+  template: `
+    <h1>Hello {{name}}!</h1>
+    <button (click)="sayHello(name)">Say hello</button>
+  `
 })
 export class LogoutComponent implements OnInit {
-  @Input() public name: string = 'Hello!!';
-  //@Output() public
+  @Input() public name: string = 'logout';
+  @Output() public sayHelloEvent = new EventEmitter<string>();
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  public sayHello(event: string) {
+    console.log(event);
+    this.sayHelloEvent.emit(event);
   }
 }

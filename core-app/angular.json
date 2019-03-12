@@ -133,38 +133,38 @@
         }
       }
     },
-    "commonAccretion": {
-      "root": "projects/common-accretion",
-      "sourceRoot": "projects/common-accretion/src",
+    "commonAccretio": {
+      "root": "projects/common-accretio",
+      "sourceRoot": "projects/common-accretio/src",
       "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/common-accretion/tsconfig.lib.json",
-            "project": "projects/common-accretion/ng-package.json"
+            "tsConfig": "projects/common-accretio/tsconfig.lib.json",
+            "project": "projects/common-accretio/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "projects/common-accretion/ng-package.prod.json"
+              "project": "projects/common-accretio/ng-package.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/common-accretion/src/test.ts",
-            "tsConfig": "projects/common-accretion/tsconfig.spec.json",
-            "karmaConfig": "projects/common-accretion/karma.conf.js"
+            "main": "projects/common-accretio/src/test.ts",
+            "tsConfig": "projects/common-accretio/tsconfig.spec.json",
+            "karmaConfig": "projects/common-accretio/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/common-accretion/tsconfig.lib.json",
-              "projects/common-accretion/tsconfig.spec.json"
+              "projects/common-accretio/tsconfig.lib.json",
+              "projects/common-accretio/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

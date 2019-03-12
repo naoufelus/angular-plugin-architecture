@@ -35,5 +35,6 @@ export class PluginService {
 
     // compile component
     const pluginComponent = selector.createComponent(componentFactory);
+    pluginComponent.instance.name = 'test';
   }
 }

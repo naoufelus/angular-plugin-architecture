@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Compiler, Inject, ReflectiveInjector, Injector, COMPILER_OPTIONS } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ModuleData } from './../models/module.model';
 
+import { ModuleData } from './../models/module.model';
+import { PluginConfig } from '@accretio/common';
 
 
 // Needed for the new modules
@@ -20,7 +21,7 @@ export class ModuleService {
   source = `http://${window.location.host}/`;
   private readonly jsonURL = 'assets/plugins/modules.json';
 
-  constructor(private compiler: Compiler, private http: HttpClient) { }
+  constructor(private compiler: Compiler, private http: HttpClient, private injector: Injector) { }
 
   loadModules(): Observable<ModuleData[]> {
     return this.http.get<ModuleData[]>(this.jsonURL).pipe(
@@ -71,5 +72,28 @@ export class ModuleService {
         return module;
       });
     });
+  }
+
+  public async injectModuleSystemJS(plugin: PluginConfig, selector: any): Promise<any> {
+    const module = await SystemJS.import(plugin.moduleBundlePath);
+
+    // compile module
+    const moduleFactory = await this.compiler
+      .compileModuleAsync<any>(module[plugin.moduleName]);
+
+    // resolve component factory
+    const moduleRef = moduleFactory.create(this.injector);
+
+    // get the custom made provider name 'plugins'
+    const componentProvider = moduleRef.injector.get(plugin.name);
+
+    // from plugins array load the component on position 0
+    const componentFactory = moduleRef.componentFactoryResolver
+      .resolveComponentFactory<any>(
+        componentProvider[0][0].component
+      );
+
+    // compile component
+    return selector.createComponent(componentFactory);
   }
 }

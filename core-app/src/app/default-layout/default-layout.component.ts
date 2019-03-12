@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { map, tap } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ import { RouterService } from '../services/router.service';
   styleUrls: ['./default-layout.component.css']
 })
 
-export class DefaultLayoutComponent implements OnInit {
+export class DefaultLayoutComponent implements OnInit, OnChanges {
   installedModules$: any;
   errorMessage: string;
   errorVisible = false;
@@ -22,13 +22,20 @@ export class DefaultLayoutComponent implements OnInit {
     private moduleService: ModuleService
   ) { }
 
+  public ngOnChanges(changes: SimpleChanges): void {
+    // logique du composant
+    console.log('change', changes);
+  }
+
   public ngOnInit(): void {
     this.installedModules$ = this.moduleService.loadModules().pipe(
       tap(response => {
         response.forEach(x => {
           if (x.registered) {
             this.registerRoute(x);
-            this.enableModule(x);
+            if (x.moduleName === 'logoutModule') {
+              this.registerRoute(x);
+            }
           }
         });
       }
